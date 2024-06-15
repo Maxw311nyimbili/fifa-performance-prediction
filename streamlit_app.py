@@ -1,6 +1,20 @@
 import streamlit as st
-import gdown
 import joblib
+
+import subprocess
+import sys
+
+def install_gdown():
+    """Install gdown using pip."""
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "gdown"])
+
+# Check if gdown is installed
+try:
+    import gdown
+except ImportError:
+    print("gdown is not installed. Installing...")
+    install_gdown()
+    import gdown  # Now import gdown after installation
 
 # Function to download model from Google Drive
 def download_model(file_id, output):
