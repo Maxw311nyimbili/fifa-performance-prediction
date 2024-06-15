@@ -11,15 +11,21 @@ def install_packages():
         print(f"Error during package installation: {e}")
         sys.exit(1)  # Exit the script if installation fails
 
-# Check if packages are installed
-try:
-    import gdown
-    import joblib
-except ImportError:
+# Check if packages are imported
+def check_import(package_name):
+    try:
+        __import__(package_name)
+        return True
+    except ImportError:
+        return False
+
+if not check_import("gdown") or not check_import("joblib"):
     print("gdown or joblib is not installed. Installing...")
     install_packages()
-    import gdown  # Now import gdown after installation
-    import joblib  # Now import joblib after installation
+
+# Now import gdown and joblib after installation
+import gdown
+import joblib
 
 # --------------------------------------------------------------------------
 
