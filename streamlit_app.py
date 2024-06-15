@@ -5,7 +5,11 @@ import sys
 
 def install_packages():
     """Install required packages using pip."""
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "gdown", "joblib"])
+    try:
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "gdown", "joblib"])
+    except subprocess.CalledProcessError as e:
+        print(f"Error during package installation: {e}")
+        sys.exit(1)  # Exit the script if installation fails
 
 # Check if packages are installed
 try:
