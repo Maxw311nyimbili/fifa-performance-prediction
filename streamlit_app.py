@@ -6,26 +6,14 @@ import sys
 def install_packages():
     """Install required packages using pip."""
     try:
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "gdown", "joblib"])
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "--user", "gdown", "joblib"])
     except subprocess.CalledProcessError as e:
         print(f"Error during package installation: {e}")
         sys.exit(1)  # Exit the script if installation fails
 
-# Check if packages are imported
-def check_import(package_name):
-    try:
-        __import__(package_name)
-        return True
-    except ImportError:
-        return False
+# Call the install_packages function
+install_packages()
 
-if not check_import("gdown") or not check_import("joblib"):
-    print("gdown or joblib is not installed. Installing...")
-    install_packages()
-
-# Now import gdown and joblib after installation
-import gdown
-import joblib
 
 # --------------------------------------------------------------------------
 
