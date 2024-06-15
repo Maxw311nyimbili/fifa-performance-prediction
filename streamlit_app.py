@@ -1,13 +1,20 @@
 import streamlit as st
-import pandas as pd
-import numpy as np
-import pickle
+import gdown
+import joblib
+
+# Function to download model from Google Drive
+def download_model(file_id, output):
+    url = f'https://drive.google.com/uc?id={file_id}'
+    gdown.download(url, output, quiet=False)
+
+# Download the model file from Google Drive
+file_id = 'https://drive.google.com/file/d/13jhgxXZI11GvCz3tbQ56-zi2QuJ0LFFJ/view?usp=sharing'
+download_model(file_id, 'model.pkl')  # Download model file
 
 # Load the trained model
-with open('best_model.pkl', 'rb') as f:
-    model = pickle.load(f)
+model = joblib.load('model.pkl')
 
-# Define a function for prediction
+# Function for prediction
 def predict_player_rating(features):
     return model.predict([features])[0]
 
@@ -32,5 +39,6 @@ if st.button("Predict Rating"):
     st.write(f"Predicted Player Rating: {rating}")
 
 # Run the Streamlit app with `streamlit run app.py`
+
 
 
